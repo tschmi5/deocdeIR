@@ -20,7 +20,20 @@ public class KeyArray {
         }
         return instance;
     }
-    public void setKey(String name, String data){
+    public void setKey(String name, int[] data){
+        keys[index].setName(name);
+        keys[index].setCode(data);
+        index++;
+    }
 
+    public Key[] getKeys() {
+        return keys;
+    }
+    public void printKeys(){
+        for(int i = 0; i < keys[0].length; i++){
+            System.out.println(keys[i].name);
+            keys[i].printCode();
+            System.out.println();
+        }
     }
 }
