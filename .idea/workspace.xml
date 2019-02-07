@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e475013-08a2-4095-8a52-e518ba2a4aa1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Key.java" afterPath="$PROJECT_DIR$/src/Key.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/KeyArray.java" afterPath="$PROJECT_DIR$/src/KeyArray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-    </list>
+    <list default="true" id="9e475013-08a2-4095-8a52-e518ba2a4aa1" name="Default" comment="" />
     <ignored path="decodeIR.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
