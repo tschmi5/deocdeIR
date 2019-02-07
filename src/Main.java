@@ -17,8 +17,14 @@ public class Main {
                 String token = file.nextLine();
                 Scanner in = new Scanner(token);
                 if(in.findInLine("name KEY_") != null){
+                    String data = "";
                     String name = in.next();
                     System.out.println(name);
+                    while(file.hasNextInt()){
+                        data += file.nextInt() + " ";
+                    }
+                    ka.setKey(name,data);
+
                 }
 
             }

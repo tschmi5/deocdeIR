@@ -7,6 +7,7 @@ public class KeyArray {
     private int index;
 
     private KeyArray(int rows,int cols){
+        index = 0;
         this.keys = new Key[rows];
         for(int i = 0; i < keys.length; i++){
             keys[i] = new Key(cols);
@@ -19,7 +20,7 @@ public class KeyArray {
         }
         return instance;
     }
-    public void setKey(){
+    public void setKey(String name, String data){
 
     }
 }
