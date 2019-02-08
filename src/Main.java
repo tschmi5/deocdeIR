@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+
         final int COLS = 67;
         final int ROWS = 24;
         String[] codes = new String[ROWS];
         String[] cutCodes = new String[ROWS];
         int[] intCodes = new int[ROWS];
-        //int[] intCodesSorted;
+        char[] keyNames = "abcdefghijklmnopqrstuvwx".toCharArray();
+        String[] colorOrder;
         String[] hexCodes = new String[ROWS];
 
         KeyArray ka = KeyArray.getInstance(COLS,ROWS);
@@ -24,18 +26,20 @@ public class Main {
             populate(file,ka);
 
             Key[] k = ka.getKeys();
+            //create all the arrays
             for(int i = 0; i < ROWS; i++){
                 codes[i] = decipher(k[i].getCode());
             }
 
             trimCodes(cutCodes, codes);
             toInt(cutCodes,intCodes);
-            Arrays.sort(intCodes,0,intCodes.length);
-
             toHex(intCodes,hexCodes);
 
+            sortAll(intCodes,hexCodes,cutCodes,keyNames);
+            System.out.println();
+
             for(int i = 0; i < ROWS; i++){
-                System.out.println(k[i].getName() + " " + intCodes[i]);
+                System.out.println(keyNames[i] + " " + cutCodes[i] + " " +  intCodes[i] + " " + hexCodes[i]);
             }
 
 
@@ -100,7 +104,36 @@ public class Main {
             }
         }
     }
-    //public void sortKeys(int[])
 
+    //sorts all of the arrays at the same time so they in order
+    public static void sortAll(int[] intCodes, String[] hexCodes, String[] cutCodes,char[] keyNames){
+
+        int n = intCodes.length;
+        for (int i = 0; i < n-1; i++)
+            for (int j = 0; j < n-i-1; j++)
+                if (intCodes[j] > intCodes[j+1])
+                {
+                    // swap temp and arr[i]
+                    int temp = intCodes[j];
+                    char kTemp = keyNames[j];
+                    String hTemp = hexCodes[j];
+                    String cTemp = cutCodes[j];
+
+
+
+                    intCodes[j] = intCodes[j+1];
+                    keyNames[j] = keyNames[j+1];
+                    hexCodes[j] = hexCodes[j+1];
+                    cutCodes[j] = cutCodes[j+1];
+
+
+                    intCodes[j+1] = temp;
+                    keyNames[j+1] = kTemp;
+                    hexCodes[j+1] = hTemp;
+                    cutCodes[j+1] = cTemp;
+                }
+        }
     }
+
+
 
