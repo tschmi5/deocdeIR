@@ -4,11 +4,14 @@
 public class KeyArray {
     private static KeyArray instance;
     private Key[] keys;
+    private Key[] sortedKeys;
+
     private int index;
 
     private KeyArray(int rows,int cols){
         index = 0;
         this.keys = new Key[rows];
+        this.sortedKeys = new Key[rows];
         for(int i = 0; i < keys.length; i++){
             keys[i] = new Key(cols);
         }
@@ -29,6 +32,8 @@ public class KeyArray {
     public Key[] getKeys() {
         return keys;
     }
+
+
     public void printKeys(){
         for(int i = 0; i < keys[0].length; i++){
             System.out.println(keys[i].name);

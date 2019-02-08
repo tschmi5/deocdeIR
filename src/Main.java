@@ -1,43 +1,50 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+        final int COLS = 67;
+        final int ROWS = 24;
+        String[] codes = new String[ROWS];
+        String[] cutCodes = new String[ROWS];
+        int[] intCodes = new int[ROWS];
+        //int[] intCodesSorted;
+        String[] hexCodes = new String[ROWS];
+
+        KeyArray ka = KeyArray.getInstance(COLS,ROWS);
 
         try {
-            final int COLS = 67;
-            final int ROWS = 24;
-            String[] codes = new String[ROWS];
-            KeyArray ka = KeyArray.getInstance(COLS,ROWS);
+            //get file of codes
             Scanner file = new Scanner(new File("C:\\develop\\git-source\\decodeIR\\src\\data.txt"));
 
+            //pass codes into KeyArray to fill it
+            populate(file,ka);
 
-            while(file.hasNextLine()){
-                String token = file.nextLine();
-                Scanner in = new Scanner(token);
-                if(in.findInLine("name KEY_") != null){
-                    int[] data = new int[67];
-                    int i = 0;
-                    String name = in.next();
-                    while(file.hasNextInt()){
-                        data[i++] = file.nextInt();
-                    }
-                    ka.setKey(name,data);
-                }
-            }
             Key[] k = ka.getKeys();
             for(int i = 0; i < ROWS; i++){
                 codes[i] = decipher(k[i].getCode());
-                System.out.println(k[i].getName() + " " + codes[i]);
             }
+
+            trimCodes(cutCodes, codes);
+            toInt(cutCodes,intCodes);
+            Arrays.sort(intCodes,0,intCodes.length);
+
+            toHex(intCodes,hexCodes);
+
+            for(int i = 0; i < ROWS; i++){
+                System.out.println(k[i].getName() + " " + intCodes[i]);
+            }
+
 
 
         } catch (FileNotFoundException e) {
             System.err.println("Error, quitting");
         }
     }
+    //turn codes into binary
     public static String decipher(int[] code){
         String decipred = "";
         for(int i = 0; i < code.length - 1; i++){
@@ -53,6 +60,47 @@ public class Main {
         }
         return decipred;
     }
+    //fill Key Array
+    public static void populate(Scanner file, KeyArray ka){
+        while(file.hasNextLine()){
+            String token = file.nextLine();
+            Scanner in = new Scanner(token);
+            if(in.findInLine("name KEY_") != null){
+                int[] data = new int[67];
+                int i = 0;
+                String name = in.next();
+                while(file.hasNextInt()){
+                    data[i++] = file.nextInt();
+                }
+                ka.setKey(name,data);
+            }
+        }
+    }
+    //trim off the parts that every code has in common
+    public static void trimCodes(String[] cutCodes, String[] codes){
+        for(int i = 0; i < cutCodes.length; i++){
+            if(codes[i].length() > 29) {
+                cutCodes[i] = codes[i].substring(18, 31);
+            }
+        }
+    }
+    //turn the codes from binary into integers
+    public static void toInt(String[] cutCodes, int[] intCodes){
+        for(int i = 0; i < cutCodes.length; i++){
+            if(cutCodes[i] != null) {
+                intCodes[i] = Integer.parseInt(cutCodes[i],2);
+            }
+        }
+    }
+    //turn codes from int into Hex strings
+    public static void toHex(int[] binaryCodes, String[] hexCodes){
+        for(int i = 0; i < binaryCodes.length; i++){
+            if(binaryCodes[i] != 0) {
+                hexCodes[i] = Integer.toHexString(binaryCodes[i]);
+            }
+        }
+    }
+    //public void sortKeys(int[])
 
     }
 
