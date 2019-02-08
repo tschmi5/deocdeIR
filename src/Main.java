@@ -13,7 +13,8 @@ public class Main {
         String[] cutCodes = new String[ROWS];
         int[] intCodes = new int[ROWS];
         char[] keyNames = "abcdefghijklmnopqrstuvwx".toCharArray();
-        String[] colorOrder;
+        String[] keyOrder = {"red","redorange","orange","yellow","yellowgreen","green","bgreen","aqua","teal","darkteal","blue","indigo","purple","magenta","pink","white",
+        "flash","strobe","fade","smooth","brightup","brightdown","Off","On"};
         String[] hexCodes = new String[ROWS];
 
         KeyArray ka = KeyArray.getInstance(COLS,ROWS);
